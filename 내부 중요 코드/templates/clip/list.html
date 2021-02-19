@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block content %}
+{% load post_extras %}  <!-- custom filter 추가 -->
+{% load static %}
+
+    <div class="container">
+        {% for post in clips %}
+        <div class ="row">
+            
+           <div class="col-lg-4 panel panel-default">
+                
+
+                <p>제목 : {{post.title}}</p>
+                <p>요약문 : {{post.summary}}</p>
+                <p>{{post|add_link|safe}}</p>
+            </div>
+            
+             <div class="col-lg-6">
+                <p>본문 : {{post.contents|linebreaksbr}}</p>
+             </div>
+            <div class="col-lg-2"></div>
+        </div>
+
+        {% endfor %}
+        {% if clips.has_previous %}
+        <a href="?page=1"> 맨 앞으로 </a>
+        <a href="?page={{ clips.previous_page_number }}"> 이전 </a>
+        {% endif %}
+        <span>{{ clips.number }}</span>
+        <span>/</span>
+        <span>{{ clips.paginator.num_pages }}</span>
+        {% if clips.has_next %}
+        <a href="?page={{ clips.next_page_number }}"> 다음 </a>
+        <a href="?page={{ clips.paginator.num_pages }}"> 맨 뒤로 </a>
+        {% endif %}
+    </div>
+    
+{% endblock %}

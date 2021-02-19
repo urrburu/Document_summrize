@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %} - gallary{% endblock %}
+
+{% block content %}
+{% load post_extras %}  <!-- custom filter 추가 -->
+        <div class="row">
+    {% for post in clips %}
+            <div class="col-lg-3 panel panel-default">
+                <p>{{post.title}}</p>
+                <p><embed src="https://clips.twitch.tv/embed?clip={{post.clipID}}&amp;autoplay=false" width="224" height="126"
+                           frameborder="0" preload="metadata" scrolling="no" allowfullscreen="true"></embed></p>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="copy_code_clipboard()">
+                    Iframe</button>
+                <button type="button" class="btn btn-sm btn-secondary" onclick="copy_to_clipboard()">
+                    Copy</button>
+                <p>{{post|add_link|safe}}</p>
+            </div>
+           {% endfor %}
+        </div>
+
+{% endblock %}
